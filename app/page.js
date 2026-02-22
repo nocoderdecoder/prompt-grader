@@ -410,7 +410,7 @@ export default function Home() {
           textAlign: 'center'
         }}>
           <p style={{ fontFamily: "'DM Mono'", fontSize: 11, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em' }}>
-            Built by <a href="https://linkedin.com/in/anshulgupta" target="_blank" rel="noopener noreferrer"
+            Built by <a href="https://www.linkedin.com/in/anshul-gupta1/" target="_blank" rel="noopener noreferrer"
               style={{ color: '#c8ff00', textDecoration: 'none' }}>Anshul Gupta</a> · Powered by Claude API
           </p>
         </div>
