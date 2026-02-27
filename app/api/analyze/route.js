@@ -1,6 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function POST(request) {
   try {
@@ -11,7 +11,6 @@ export async function POST(request) {
     }
 
     const systemPrompt = `You are an expert prompt engineer with deep knowledge of how LLMs work. Your job is to analyze prompts written by users, score them, and rewrite them to be significantly better.
-
 When rewriting, you produce a clean, concise, highly effective prompt. It should:
 - Be direct and specific
 - Include a clear role/persona for the AI where helpful
@@ -19,18 +18,14 @@ When rewriting, you produce a clean, concise, highly effective prompt. It should
 - Use negative prompting where it genuinely helps (e.g. "Do not use jargon", "Avoid bullet points unless necessary")
 - NOT be bloated or unnecessarily long
 - NOT rigidly follow any named framework — just be excellent
-
 You must respond with ONLY a valid JSON object, no markdown, no explanation outside the JSON.`;
 
     const userMessage = `Analyze this prompt and return a JSON object.
-
 ORIGINAL PROMPT:
 """
 ${prompt}
 """
-
 ${context ? `EXTRA CONTEXT FROM USER:\n"""\n${context}\n"""` : ''}
-
 Return this exact JSON structure:
 {
   "score": <number 0-100>,
@@ -55,28 +50,29 @@ Return this exact JSON structure:
     "<specific change made and why 3>"
   ]
 }
-
 Scoring guide:
 0-25: Weak (vague, no context, no guidance)
 26-50: Average (some clarity but missing key elements)
 51-75: Good (solid but missing refinement)
 76-100: Excellent (clear, specific, well constrained)`;
 
-    const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: userMessage }],
-      system: systemPrompt,
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.5-flash',
+      systemInstruction: systemPrompt,
     });
 
-    const rawText = message.content[0].text.trim();
+    const result = await model.generateContent(userMessage);
+    const rawText = result.response.text().trim();
 
-    // Strip markdown code fences if present
-    const cleaned = rawText.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim();
+    const cleaned = rawText
+      .replace(/^```json\n?/, '')
+      .replace(/^```\n?/, '')
+      .replace(/\n?```$/, '')
+      .trim();
 
-    const result = JSON.parse(cleaned);
+    const parsed = JSON.parse(cleaned);
+    return Response.json(parsed);
 
-    return Response.json(result);
   } catch (err) {
     console.error('API error:', err);
     if (err instanceof SyntaxError) {
