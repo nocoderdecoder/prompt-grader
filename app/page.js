@@ -411,7 +411,7 @@ export default function Home() {
         }}>
           <p style={{ fontFamily: "'DM Mono'", fontSize: 11, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em' }}>
             Built by <a href="https://www.linkedin.com/in/anshul-gupta1/" target="_blank" rel="noopener noreferrer"
-              style={{ color: '#c8ff00', textDecoration: 'none' }}>Anshul Gupta</a> · Powered by Claude API
+              style={{ color: '#c8ff00', textDecoration: 'none' }}>Anshul Gupta</a> ·
           </p>
         </div>
 
