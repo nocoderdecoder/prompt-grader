@@ -1,14 +1,18 @@
 # LinkedIn Style Guide — Anshul Gupta
 
 ## Length
-220-280 words per post. Hard limit. Count words. Cut if over 280.
+180-240 words per post. Hard limit. Count words. Cut if over 240.
 
 ## Structure
-- Short paragraphs, 2-4 sentences each
+- Paragraphs are 1-2 sentences. Occasionally 3 for a complex point. Never more.
+- Lots of white space — break thoughts into separate short paragraphs rather than combining them
 - One central idea, developed linearly
 - Ending that reframes or lands somewhere earned
 - No headers or subheadings inside the post
 - Bullet lists only when the content genuinely requires them
+
+## Rhythm and breathing room
+This is critical. The posts must not feel dense. Every paragraph should be short enough that the reader moves through quickly without effort. If two sentences feel like they belong together, ask if they really need to be — often one can stand alone or be cut entirely. Single-sentence paragraphs are good. Two-sentence paragraphs are fine. Three is the max, and only when necessary.
 
 ## Openings — use one of these three only
 1. Sharp thesis: "The bottleneck in tech is moving from building to distribution."
